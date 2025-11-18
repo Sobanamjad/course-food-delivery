@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Enums\RoleName;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -50,6 +53,11 @@ class User extends Authenticatable
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function restaurant(): HasOne
+    {
+        return $this->hasOne(Restaurant::class, 'owner_id');
     }
 
     public function isAdmin(): bool
