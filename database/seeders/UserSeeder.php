@@ -41,7 +41,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        $vendor->roles()->sync(Role::where('name', RoleName::VENDOR->value)->first());
+        $vendorRole = Role::where('name', RoleName::VENDOR->value)->first();
+        $vendor->roles()->sync([$vendorRole->id]);
 
         $vendor->restaurant()->create([
             'city_id' => City::where('name', 'Vilnius')->value('id'),

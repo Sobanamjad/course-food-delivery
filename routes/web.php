@@ -1,9 +1,30 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Permission;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+// Route::get('/test-permissions', function () {
+//     $user = Auth::user();
+
+//     if (!$user) {
+//         return 'No user logged in!';
+//     }
+
+//     echo "<h2>User: {$user->name} ({$user->email})</h2><hr>";
+
+//     foreach (Permission::pluck('name') as $permission) {
+//         $has = $user->hasPermission($permission) ? '✅ Has' : '❌ Missing';
+//         echo $permission . ' : ' . $has . '<br>';
+//     }
+// })->middleware('auth');
+
+Route::get('/test-permissions', function () {
+    dd(Permission::pluck('name')->toArray(), Auth::user()->permissions(), Gate::allows('restaurant.viewAny'));
+});
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

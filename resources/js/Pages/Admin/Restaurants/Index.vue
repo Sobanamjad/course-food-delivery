@@ -36,6 +36,7 @@ defineProps({
                   <th>Address</th>
                   <th>Owner Name</th>
                   <th>Owner Email</th>
+                  <th></th> 
                 </tr>
               </thead>
               <tbody>
@@ -52,6 +53,14 @@ defineProps({
                         restaurant.owner.email
                     }}</a>
                   </td>
+                  <td>
+                    <Link
+                    :href="route('admin.restaurants.edit', restaurant)"
+                    class="btn btn-secondary"
+                    >
+                    Edit
+                    </Link>
+                </td>
                 </tr>
               </tbody>
             </table>
