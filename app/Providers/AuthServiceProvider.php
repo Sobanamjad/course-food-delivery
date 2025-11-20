@@ -12,7 +12,7 @@ class AuthServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->registerPolicies();
+        // $this->registerPolicies();
 
         // Gate::before(function ($user, $ability) {
         //     // Only allow if the Gate is defined or permission exists

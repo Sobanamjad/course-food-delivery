@@ -27,7 +27,8 @@ const showingNavigationDropdown = ref(false)
 
               <!-- Navigation Links -->
               <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                <NavLink v-if="can('restaurant.viewAny')" 
+                :href="route('dashboard')" :active="route().current('dashboard')">
                   Dashboard
                 </NavLink>
                 <NavLink
@@ -154,9 +155,9 @@ const showingNavigationDropdown = ref(false)
 
       <!-- Page Content -->
       <main>
-        <div v-if="$page.props.status" class="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8"> 
-          <div class="alert alert-success">{{ $page.props.status }}</div> 
-        </div> 
+        <div v-if="$page.props.status" class="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8">
+          <div class="alert alert-success">{{ $page.props.status }}</div>
+        </div>
         <slot />
       </main>
     </div>
