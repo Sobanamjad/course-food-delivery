@@ -1,38 +1,65 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import { Head } from '@inertiajs/vue3'
- 
+import { Head, Link } from '@inertiajs/vue3'
+
 defineProps({
     categories: {
         type: Array
     }
 })
 </script>
- 
+
 <template>
     <Head title="Restaurant Menu" />
- 
+
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Restaurant Menu</h2>
         </template>
- 
+
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 overflow-x-scroll flex flex-col gap-8">
+                        
+                        <!-- Button at top inside same container -->
+                        <div v-if="can('category.create')" class="mb-4">
+                            <Link class="btn btn-primary" :href="route('vendor.categories.create')">
+                                Add New Product Category
+                            </Link>
+                        </div>
+
+                        <!-- Categories Loop -->
                         <div v-for="category in categories" :key="category.id" class="flex flex-col gap-4">
-                            <div class="flex justify-between">
-                                <div class="">
-                                    <div class="text-2xl font-bold">{{ category.name }}</div>
-                                </div>
+                            <div class="flex justify-between items-center">
+                                <!-- Category Name -->
+                                <div class="text-2xl font-bold">{{ category.name }}</div>
+
+                                <!-- Edit & Delete Category Buttons -->
                                 <div class="flex gap-4 items-center">
-                                    Edit / Delete Category Buttons: Coming Soon
+                                    <Link
+                                        :href="route('vendor.categories.edit', category)"
+                                        class="btn btn-secondary btn-sm"
+                                    >
+                                        Edit
+                                    </Link>
+                                    <Link
+                                        :href="route('vendor.categories.destroy', category)"
+                                        class="btn btn-danger btn-sm"
+                                        method="delete"
+                                        as="button"
+                                    >
+                                        Delete
+                                    </Link>
                                 </div>
                             </div>
+
+                            <!-- Add Product Button Placeholder -->
                             <div>
                                 Add Product Button: Coming Soon
                             </div>
+
+                            <!-- Products Loop -->
                             <div class="flex flex-col gap-6">
                                 <div
                                     v-for="product in category.products"
@@ -49,6 +76,8 @@ defineProps({
                                 </div>
                             </div>
                         </div>
+                        <!-- End Categories Loop -->
+
                     </div>
                 </div>
             </div>
