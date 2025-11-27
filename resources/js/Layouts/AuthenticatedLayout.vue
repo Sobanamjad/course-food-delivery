@@ -20,7 +20,7 @@ const showingNavigationDropdown = ref(false)
             <div class="flex">
               <!-- Logo -->
               <div class="flex shrink-0 items-center">
-                <Link :href="route('dashboard')">
+                <Link :href="route('home')">
                   <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
                 </Link>
               </div>
@@ -45,7 +45,7 @@ const showingNavigationDropdown = ref(false)
               </div>
             </div>
 
-            <div class="hidden sm:ms-6 sm:flex sm:items-center">
+            <div v-if="$page.props.auth.user" class="hidden sm:flex sm:items-center sm:ml-6">
               <!-- Settings Dropdown -->
               <div class="relative ms-3">
                 <Dropdown align="right" width="48">
@@ -81,6 +81,10 @@ const showingNavigationDropdown = ref(false)
                   </template>
                 </Dropdown>
               </div>
+            </div>
+            <div v-else class="hidden sm:flex gap-4 items-center sm:ml-6">
+                <Link :href="route('login')" class="btn btn-secondary">Login</Link>
+                <Link :href="route('register')" class="btn btn-primary">Register</Link>
             </div>
 
             <!-- Hamburger -->
@@ -125,13 +129,13 @@ const showingNavigationDropdown = ref(false)
           class="sm:hidden"
         >
           <div class="space-y-1 pb-3 pt-2">
-            <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-              Dashboard
+            <ResponsiveNavLink :href="route('home')" :active="route().current('home')">
+              Home
             </ResponsiveNavLink>
           </div>
 
           <!-- Responsive Settings Options -->
-          <div class="border-t border-gray-200 pb-1 pt-4">
+          <div v-if="$page.props.auth.user" class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
               <div class="text-base font-medium text-gray-800">
                 {{ $page.props.auth.user.name }}
