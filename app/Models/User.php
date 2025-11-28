@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Enums\RoleName;
-use App\Models\Role;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -103,5 +103,10 @@ class User extends Authenticatable
     public function hasPermission(string $permission): bool
     {
         return in_array($permission, $this->permissions(), true);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'customer_id');
     }
 }
