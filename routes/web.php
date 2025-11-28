@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RestaurantController;
 // use Illuminate\Foundation\Application;
 use App\Models\Permission;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,8 @@ use Illuminate\Support\Facades\Route;
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('restaurant/{restaurant}', [RestaurantController::class, 'show'])
+    ->name('restaurant');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -52,3 +55,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
 require __DIR__.'/vendor.php';
+require __DIR__.'/customer.php';

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
@@ -26,7 +25,7 @@ class PermissionSeeder extends Seeder
         $resources = [
             'user',
             'restaurant',
-            'category', 
+            'category',
             'product',
         ];
 
@@ -38,5 +37,7 @@ class PermissionSeeder extends Seeder
             ->each(function ($permission) {
                 Permission::create(['name' => $permission]);
             });
+
+        Permission::create(['name' => 'cart.add']);
     }
 }

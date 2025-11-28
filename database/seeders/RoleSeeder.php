@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Enums\RoleName;
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 
@@ -18,6 +17,7 @@ class RoleSeeder extends Seeder
     {
         $this->createAdminRole();
         $this->createVendorRole();
+        $this->createCustomerRole();
     }
 
     protected function createRole(RoleName $role, Collection $permissions): void
@@ -45,5 +45,12 @@ class RoleSeeder extends Seeder
             ->pluck('id');
 
         $this->createRole(RoleName::VENDOR, $permissions);
+    }
+
+    protected function createCustomerRole(): void
+    {
+        $permissions = Permission::where('name', 'cart.add')->get();
+
+        $this->createRole(RoleName::CUSTOMER, $permissions);
     }
 }
