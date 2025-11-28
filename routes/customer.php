@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\Customer\OrderController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Permission;
 
 Route::group([
     'prefix' => 'customer',

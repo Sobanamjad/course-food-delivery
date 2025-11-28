@@ -25,7 +25,7 @@ class NewOrderCreated extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(Order $order)
     {
         $this->order = $order;
         $this->restaurant = $order->restaurant;

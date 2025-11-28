@@ -28,8 +28,8 @@ const showingNavigationDropdown = ref(false)
               <!-- Navigation Links -->
               <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                 <NavLink v-if="can('restaurant.viewAny')" 
-                :href="route('dashboard')" :active="route().current('dashboard')">
-                  Dashboard
+                :href="route('home')" :active="route().current('home')">
+                  Home
                 </NavLink>
                 <NavLink
                 :href="route('admin.restaurants.index')"
@@ -48,6 +48,13 @@ const showingNavigationDropdown = ref(false)
                     :active="route().current('customer.orders.index')"
                 >
                     My Orders
+                </NavLink>
+                <NavLink
+                  v-if="can('user.create') && $page.props.auth.is_vendor"
+                  :href="route('vendor.staff-members.index')"
+                  :active="route().current('vendor.staff-members.index')"
+                >
+                  Staff Management
                 </NavLink>
               </div>
             </div>

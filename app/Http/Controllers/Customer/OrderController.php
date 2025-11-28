@@ -6,6 +6,7 @@ use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\StoreOrderRequest;
 use App\Models\Order;
+use App\Notifications\NewOrderCreated;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -45,7 +46,7 @@ class OrderController extends Controller
         });
 
         $order->restaurant->owner->notify(new NewOrderCreated($order));
-        
+
         session()->forget('cart');
 
         return to_route('customer.orders.index')
